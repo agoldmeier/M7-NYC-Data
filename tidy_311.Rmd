@@ -1,5 +1,5 @@
 ---
-title: "tidy_311.Rmd"
+title: "M7 NYC Data"
 author: "Aaron"
 date: "7/12/2020"
 output: html_document
@@ -12,22 +12,37 @@ library(tidyverse)
 my_data <- read_csv("https://data.cityofnewyork.us/resource/erm2-nwe9.csv?%24select=Created_Date,Agency,Complaint_Type,Incident_Address,Location")
 ```
 
-## R Markdown
+## NYC Data
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+I am going to be reviewing the data within this table, which consists of complaints in the NYC area. This data can be viewed through the link below: <https://data.cityofnewyork.us/resource/erm2-nwe9.csv?%24select=Created_Date,Agency,Complaint_Type,Incident_Address,Location>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Data is incredibly helpful for many reasons, but in order for data to be helpful, it needs to be easy to read and understand. The following data is messy in certain ways, so throughout this markdown I will be reorganizing the data in order for it to be simpler to interpret. 
 
 ```{r cars}
 my_data
 ```
 
-## Including Plots
+## Messy Data
 
-You can also embed plots, for example:
+As you can see from this data set there is some work that needs to be done in order to tidy it up. For example, the column labeled, "Created_Date", has multiple variables stored in one column. This leads to the table being cluttered and harder to understand. Along with this column, the "Location" column is quite difficult to interpret with the lattitude and longitude variables squeezed into the same cells.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+Another way to enhance this data set and control the tidiness would to be resolve the issue of multiple types of variables reoccurring in one table. Under the "Complaint_Type" category, we see variables repeating themselves. This extends and complicates the data set. A way to resolve this issue would be to reorganize the data, making the table more compact and easy to read and understand. 
+
+## Tidying Up The Data
+
+# Separating Location
+
+I am going to tidy up this data one step at a time. First, I am going to separate the latitude and longitude values from the "Location" column. 
+
+```{r Location, echo=FALSE}
+my_data1 <- my_data %>%
+  separate(Location, into = c("Period","Latitude","Longitude"),sep = " ")
+my_data1
+
 ```
+
+Now the table has been reorganized a little better and the locations are easier to read. Next, I will be separating the house number and street names from the "Incident Address" column. 
+
+# Separating Address
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
