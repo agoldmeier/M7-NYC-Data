@@ -49,5 +49,11 @@ Now the table has been reorganized a little better and the locations are easier 
 
 ```
 
+The dates and times are pushed together making it difficult to read. Below, I am going to separate these two values in order to clean up this function. 
+
+```{r}
+my_data1 %>%
+  separate(Created_Date, into = c("Date","Time"),sep = 10)
+```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
