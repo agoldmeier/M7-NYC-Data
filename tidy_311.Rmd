@@ -18,7 +18,7 @@ I am going to be reviewing the data within this table, which consists of complai
 
 Data is incredibly helpful for many reasons, but in order for data to be helpful, it needs to be easy to read and understand. The following data is messy in certain ways, so throughout this markdown I will be reorganizing the data in order for it to be simpler to interpret. 
 
-```{r cars}
+```{r message=FALSE}
 my_data
 ```
 
@@ -46,14 +46,19 @@ Now the table has been reorganized a little better and the locations are easier 
 # Separating Address
 
 ```{r}
-
+my_data2 <- my_data1 %>%
+  separate(Incident_Address, into = c("House#","Street_Name"),sep = " ")
+my_data2
 ```
+
+# Separating Time
 
 The dates and times are pushed together making it difficult to read. Below, I am going to separate these two values in order to clean up this function. 
 
-```{r}
-my_data1 %>%
+```{r Date}
+my_data3 <- my_data2 %>%
   separate(Created_Date, into = c("Date","Time"),sep = 10)
+my_data3
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Although it does not look like the cleanest table you have ever seen, the values have been split up into more organized categories. Now you should be able to see what the specific values are for each string, when the table is more spread out. 
